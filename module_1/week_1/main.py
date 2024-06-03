@@ -7,22 +7,26 @@ def calculate_f1_score(tp, fp, fn):
     assert isinstance(tp, int), 'tp must be int'
     assert isinstance(fp, int), 'fp must be int'
     assert isinstance(fn, int), 'fn must be int'
-    assert tp >0 and fp > 0 and fn > 0, 'tp and fp and fn must be greater than zero'
+    assert tp > 0 and fp > 0 and fn > 0, 'tp and fp and fn must be greater than zero'
     percision = tp / (tp + fp)
     recall = tp / (tp + fn)
     f1_score = 2 * (percision * recall) / (percision + recall)
     print(f'Percision: {percision}\nRecall: {recall}\nF1 Score: {f1_score}')
     return f1_score
 
+
 # Ex2
 def sigmoid(x):
     return 1 / (1 + math.exp(-x))
 
+
 def relu(x):
     return max(0, x)
 
+
 def elu(x, alpha):
     return x if x > 0 else alpha * (math.exp(x) - 1)
+
 
 # Given function
 def is_number(n):
@@ -30,11 +34,13 @@ def is_number(n):
         float(n)
     except ValueError:
         return False
-    return True 
+    return True
+
 
 def calculate_activation():
     x = input('x = ')
-    activation_func = input('Activation function (sigmoid|relu|elu) = ').lower()
+    activation_func = input(
+        'Activation function (sigmoid|relu|elu) = ').lower()
     supported_funcs = {'sigmoid': sigmoid, 'relu': relu, 'elu': elu}
     if activation_func not in supported_funcs.keys():
         print(f'{activation_func} is not supported')
@@ -47,22 +53,25 @@ def calculate_activation():
     print(f'{activation_func}: f({x}) = {result}')
     return result
 
+
 # Ex3
 def mae(y_true, y_pred):
     return sum([abs(y_true[i] - y_pred[i]) for i in range(len(y_true))]) / len(y_true)
 
+
 def mse(y_true, y_pred):
     return sum([(y_true[i] - y_pred[i]) ** 2 for i in range(len(y_true))]) / len(y_true)
 
+
 def rmse(y_true, y_pred):
     return math.sqrt(mse(y_true, y_pred))
-     
+
+
 def calculate_loss():
     num_samples = input('Number of samples which are generated: ')
     if not num_samples.isnumeric() or int(num_samples) <= 0:
         print('Number of samples must be a positive integer')
         return
-    
     loss_name = input('Loss function (mae|mse|rmse): ').lower()
     supported_funcs = {'mae': mae, 'mse': mse, 'rmse': rmse}
     if loss_name not in supported_funcs.keys():
@@ -79,29 +88,32 @@ def calculate_loss():
         if i != int(num_samples) - 1:
             log += ', '
     print(log)
-    
     loss = supported_funcs[loss_name](y_true, y_predict)
     print(f'final {loss_name} = {loss}')
-    
+
+
 # Ex4
 def factorial(n):
     if n == 0:
         return 1
     return n * factorial(n - 1)
 
+
 def approximate_sin(x, n):
     assert n > 0, 'n must be greater than zero'
     approx = 0
     for i in range(n):
-        approx += ((-1) ** i) * ( x ** (2 * i + 1) / factorial(2 * i + 1))
+        approx += ((-1) ** i) * (x ** (2 * i + 1) / factorial(2 * i + 1))
     return approx
+
 
 def approximate_cos(x, n):
     assert n > 0, 'n must be greater than zero'
     approx = 0
     for i in range(n):
-        approx += ((-1) ** i) * ( x ** (2 * i) / factorial(2 * i))
+        approx += ((-1) ** i) * (x ** (2 * i) / factorial(2 * i))
     return approx
+
 
 def approximate_sinh(x, n):
     assert n > 0, 'n must be greater than zero'
@@ -110,6 +122,7 @@ def approximate_sinh(x, n):
         approx += x ** (2 * i + 1) / factorial(2 * i + 1)
     return approx
 
+
 def approximate_cosh(x, n):
     assert n > 0, 'n must be greater than zero'
     approx = 0
@@ -117,9 +130,11 @@ def approximate_cosh(x, n):
         approx += x ** (2 * i) / factorial(2 * i)
     return approx
 
+
 # Ex5
 def md_nre_single_sample(y, y_hat, n, p):
-    return (y ** (1 / n) - y_hat ** (1 / n)) ** p 
+    return (y ** (1 / n) - y_hat ** (1 / n)) ** p
+
 
 if __name__ == '__main__':
     # Q1
