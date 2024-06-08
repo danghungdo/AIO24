@@ -8,10 +8,10 @@ def calculate_f1_score(tp, fp, fn):
     assert isinstance(fp, int), 'fp must be int'
     assert isinstance(fn, int), 'fn must be int'
     assert tp > 0 and fp > 0 and fn > 0, 'tp and fp and fn must be greater than zero'
-    percision = tp / (tp + fp)
+    precision = tp / (tp + fp)
     recall = tp / (tp + fn)
-    f1_score = 2 * (percision * recall) / (percision + recall)
-    print(f'Percision: {percision}\nRecall: {recall}\nF1 Score: {f1_score}')
+    f1_score = 2 * (precision * recall) / (precision + recall)
+    print(f'Precision: {precision}\nRecall: {recall}\nF1 Score: {f1_score}')
     return f1_score
 
 
@@ -24,7 +24,7 @@ def relu(x):
     return max(0, x)
 
 
-def elu(x, alpha):
+def elu(x, alpha=0.01):
     return x if x > 0 else alpha * (math.exp(x) - 1)
 
 
@@ -77,17 +77,16 @@ def calculate_loss():
     if loss_name not in supported_funcs.keys():
         print(f'{loss_name} is not supported')
         return
-    log = f'Loss name: {loss_name}, '
+    logs = [f'Loss name: {loss_name}']
     y_true, y_predict = [], []
     for i in range(int(num_samples)):
         pred = random.uniform(0.0, 10.0)
         target = random.uniform(0.0, 10.0)
         y_true.append(target)
         y_predict.append(pred)
-        log += f'sample: {i+1}, pred: {pred}, true: {target}'
-        if i != int(num_samples) - 1:
-            log += ', '
-    print(log)
+        log = f'sample: {i+1}, pred: {pred}, true: {target}'
+        logs.append(log)
+    print(', '.join(logs))
     loss = supported_funcs[loss_name](y_true, y_predict)
     print(f'final {loss_name} = {loss}')
 
@@ -103,7 +102,7 @@ def approximate_sin(x, n):
     assert n > 0, 'n must be greater than zero'
     approx = 0
     for i in range(n):
-        approx += ((-1) ** i) * (x ** (2 * i + 1) / factorial(2 * i + 1))
+        approx += (-1) ** i * x ** (2 * i + 1) / factorial(2 * i + 1)
     return approx
 
 
@@ -111,7 +110,7 @@ def approximate_cos(x, n):
     assert n > 0, 'n must be greater than zero'
     approx = 0
     for i in range(n):
-        approx += ((-1) ** i) * (x ** (2 * i) / factorial(2 * i))
+        approx += (-1) ** i * x ** (2 * i) / factorial(2 * i)
     return approx
 
 
@@ -137,10 +136,11 @@ def md_nre_single_sample(y, y_hat, n, p):
 
 
 if __name__ == '__main__':
+    calculate_loss()
     # Q1
     print('Question 1: ')
     assert round(calculate_f1_score(tp=2, fp=3, fn=5), 2) == 0.33
-    print(round(calculate_f1_score(tp=2, fp=3, fn=5), 2))
+    print(round(calculate_f1_score(tp=2, fp=4, fn=5), 2))
     print('-------------------')
     # Q2
     print('Question 2: ')
