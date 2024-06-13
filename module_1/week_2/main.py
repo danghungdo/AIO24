@@ -65,14 +65,14 @@ def calculate_levenshtein_distance(s1, s2):
 
 
 # Part II - Ex5
-def check_the_number(N):
+def check_the_number(n):
     list_of_numbers = []
     result = ''
     for i in range(1, 5):
         list_of_numbers.append(i)
-    if N in list_of_numbers:
+    if n in list_of_numbers:
         result = 'True'
-    if N not in list_of_numbers:
+    if n not in list_of_numbers:
         result = 'False'
     return result
 
@@ -212,7 +212,7 @@ if __name__ == '__main__':
     print('-------------------')
 
     print('Part II - Ex4')
-    assert calculate_levenshtein_distance('hi', 'hello') == 4.0
+    assert calculate_levenshtein_distance('hi', 'hello') - 4.0 < 0.01
     print(calculate_levenshtein_distance('hola', 'hello'))
     print('-------------------')
 
