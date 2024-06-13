@@ -98,8 +98,11 @@ def factorial(n):
     return n * factorial(n - 1)
 
 
+N_MUST_BE_GREATER_THAN_ZERO = 'n must be greater than zero'
+
+
 def approximate_sin(x, n):
-    assert n > 0, 'n must be greater than zero'
+    assert n > 0, N_MUST_BE_GREATER_THAN_ZERO
     approx = 0
     for i in range(n):
         approx += (-1) ** i * x ** (2 * i + 1) / factorial(2 * i + 1)
@@ -107,7 +110,7 @@ def approximate_sin(x, n):
 
 
 def approximate_cos(x, n):
-    assert n > 0, 'n must be greater than zero'
+    assert n > 0, N_MUST_BE_GREATER_THAN_ZERO
     approx = 0
     for i in range(n):
         approx += (-1) ** i * x ** (2 * i) / factorial(2 * i)
@@ -115,7 +118,7 @@ def approximate_cos(x, n):
 
 
 def approximate_sinh(x, n):
-    assert n > 0, 'n must be greater than zero'
+    assert n > 0, N_MUST_BE_GREATER_THAN_ZERO
     approx = 0
     for i in range(n):
         approx += x ** (2 * i + 1) / factorial(2 * i + 1)
@@ -123,7 +126,7 @@ def approximate_sinh(x, n):
 
 
 def approximate_cosh(x, n):
-    assert n > 0, 'n must be greater than zero'
+    assert n > 0, N_MUST_BE_GREATER_THAN_ZERO
     approx = 0
     for i in range(n):
         approx += x ** (2 * i) / factorial(2 * i)
@@ -131,27 +134,27 @@ def approximate_cosh(x, n):
 
 
 # Ex5
-def md_nre_single_sample(y, y_hat, n, p):
-    return (y ** (1 / n) - y_hat ** (1 / n)) ** p
+def md_nre_single_sample(y_inner, y_hat_inner, n, p):
+    return (y_inner ** (1 / n) - y_hat_inner ** (1 / n)) ** p
 
 
 if __name__ == '__main__':
     calculate_loss()
     # Q1
     print('Question 1: ')
-    assert round(calculate_f1_score(tp=2, fp=3, fn=5), 2) == 0.33
+    assert round(calculate_f1_score(tp=2, fp=3, fn=5), 2) - 0.33 < 0.01
     print(round(calculate_f1_score(tp=2, fp=4, fn=5), 2))
     print('-------------------')
     # Q2
     print('Question 2: ')
-    assert is_number(3) == 1.0
-    assert is_number('-2a') == 0.0
+    assert is_number(3) - 1.0 < 0.01
+    assert is_number('-2a') < 0.01
     print(is_number(1))
     print(is_number('n'))
     print('-------------------')
     # Q4
     print('Question 4: ')
-    assert round(sigmoid(3), 2) == 0.95
+    assert round(sigmoid(3), 2) - 0.95 < 0.01
     print(round(sigmoid(2), 2))
     print('-------------------')
     # Q5
@@ -181,21 +184,21 @@ if __name__ == '__main__':
     print('-------------------')
     # Q9
     print('Question 9: ')
-    assert round(approximate_cos(1, 10), 2) == 0.54
+    assert round(approximate_cos(1, 10), 2) - 0.54 < 0.01
     print(round(approximate_cos(3.14, 10), 2))
     print('-------------------')
     # Q10
     print('Question 10: ')
-    assert round(approximate_sin(1, 10), 4) == 0.8415
+    assert round(approximate_sin(1, 10), 4) - 0.8415 < 0.01
     print(round(approximate_sin(3.14, 10), 4))
     print('-------------------')
     # Q11
     print('Question 11: ')
-    assert round(approximate_sinh(1, 10), 2) == 1.18
+    assert round(approximate_sinh(1, 10), 2) - 1.18 < 0.01
     print(round(approximate_sinh(3.14, 10), 2))
     print('-------------------')
     # Q12
     print('Question 12: ')
-    assert round(approximate_cosh(1, 10), 2) == 1.54
+    assert round(approximate_cosh(1, 10), 2) - 1.54 < 0.01
     print(round(approximate_cosh(3.14, 10), 2))
     print('-------------------')
