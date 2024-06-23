@@ -48,6 +48,7 @@ def main():
         # compute levenshtein distance
         leven_distances = dict()
         for vocab in vocabs:
+
             leven_distances[vocab] = levenshtein_distance(
                 word, vocab)
 
